@@ -1,0 +1,25 @@
+.row {
+  overflow: auto !important;
+}
+
+.btnImage {
+  display: inline-block;
+  color: blue;
+  font-size: calc(200px + 2.4vw);
+  text-align: center;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.porBaixo {
+  border-radius: 0%;
+  height: 100%;
+  width: 100%;
+}
+
+.modal {
+  text-align: center;
+  z-index: 1050 !important;
+}
