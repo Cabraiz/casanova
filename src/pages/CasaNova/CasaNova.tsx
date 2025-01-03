@@ -224,7 +224,8 @@ const NewHomeGiftPage: React.FC = () => {
           totalPages={Math.ceil(totalItems / itemsPerPage)}
           handlePageChange={handlePageChange}
           handleShowPayment={handleShowPayment}
-          isLoading={loading} // Passa a flag de loading para o DesktopView
+          isLoading={loading}
+          sortItems={sortItems}
         />
       )}
       <PaymentModal
