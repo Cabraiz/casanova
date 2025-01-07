@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://www.cabraiz.com",
+  "homepage": "https://casanova.my",
   "type": "module",
   "private": true,
   "dependencies": {

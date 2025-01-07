@@ -176,124 +176,46 @@ function App() {
       setSelectedLink(link);
     };
   return (
-    <>
-      <div>
-        <TitleWebsite title1="Bem Vindo! 🤝" title2="Cabraiz" />
+  <>
+    <div>
+      <TitleWebsite title1="Bem Vindo! 🤝" title2="CasaNova" />
+    </div>
+    {/* Navbar foi removido */}
+    <Routes>
+      <Route path="/" element={<CasaNova />} />
+
+      {/* public routes */}
+      <Route path="/registerhublocal" element={<RegisterHubLocal />} />
+      <Route path="/loginhublocal" element={<LoginHubLocal />} />
+      {/* <Route path="/surprise" element={<Surprise />} /> */}
+      <Route path="/resume" element={<Resume />} />
+      <Route path="/doris" element={<Doris />} />
+      <Route path="/casanova" element={<CasaNova />} />
+
+      <Route path="/hublocal" element={<PrivateOutlet />}>
+        {/* protected routes */}
+        <Route index element={<Hublocal />} />
+      </Route>
+    </Routes>
+    {!isNavOn && !isMobile ? (
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          right: "10px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          marginBottom: "8vh",
+          marginRight: "3vw",
+        }}
+      >
+        {buttons}
       </div>
-      {isNavOn ? null : (
-        <Navbar
-          className="border-gradient-green"
-          style={{
-            justifyContent: "space-between",
-            height: "11vh",
-            fontWeight: "600",
-            paddingTop: "0px",
-            paddingBottom: "0px",
-            marginInline: "0px",
-            marginTop: "0.1vh",
-            marginBottom: "0",
-          }}
-        >
-          <Image
-            src={logo}
-            style={{
-              marginLeft: `${convertMultiplyVwToPx()}px`,
-              marginRight: "20px",
-              marginTop: "0.5vh",
-              borderRadius: "20%",
-              width: "8.5vh",
-              height: "8.5vh",
-            }}
-          />
-          {!isMobile ? (
-            // Render Nav element and Nav.Link elements for non-mobile devices
-            <>
-              <Nav id="nav-dropdown" style={{ display: 'inline-flex', alignItems: 'center' }}>
-                {links.map((link) => (
-                  <Nav.Link
-                    key={link}
-                    className={`text-nowrap nav-link-custom ${
-                      selectedLink === link ? "active" : ""
-                    }`}
-                    href={`#${link.toLowerCase()}`}
-                    onClick={handleLinkClick(link)}
-                  >
-                    {link === "Live" && (
-                      <div>
-                        <LiveAnimation />
-                      </div>
-                    )}
-                    <span style={{ marginLeft: link === "Live" ? '5px' : '0' }}>
-                      {link}
-                    </span>
-                  </Nav.Link>
-                ))}
-              </Nav>
-              <Button
-                style={{
-                  marginRight: "4vw",
-                  width: "auto",
-                  height: "6vh",
-                  fontSize: "1rem",
-                  backgroundColor: "white",
-                  color: "rgba(100, 100, 100)",
-                  fontWeight: "500",
-                  borderColor: "white",
-                }}
-                //onClick={SignFirebase}
-              >
-                <Row className="m-0 ps-0 pe-0" style={{ alignItems: "center" }}>
-                  <Image
-                    src={logoGmail}
-                    style={{
-                      width: "calc(15px + 0.3vw)",
-                      margin: "0",
-                      padding: "0",
-                      height: "100%",
-                    }}
-                  ></Image>
-                  &nbsp;&nbsp;{signInStatus}
-                </Row>
-              </Button>
-            </>
-          ) : null}
-        </Navbar>
-      )}
-      <Routes>
-        <Route path="/" element={<Mateus />} />
-
-        {/* public routes */}
-        <Route path="/registerhublocal" element={<RegisterHubLocal />} />
-        <Route path="/loginhublocal" element={<LoginHubLocal />} />
-        {/* <Route path="/surprise" element={<Surprise />} /> */}
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/doris" element={<Doris />} />
-        <Route path="/casanova" element={<CasaNova />} />
-
-        <Route path="/hublocal" element={<PrivateOutlet />}>
-          {/* protected routes */}
-          <Route index element={<Hublocal />} />
-        </Route>
-      </Routes>
-      {!isNavOn && !isMobile ? (
-        <div
-          style={{
-            position: "fixed",
-            bottom: "10px",
-            right: "10px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            marginBottom: "8vh",
-            marginRight: "3vw",
-          }}
-        >
-          {buttons}
-        </div>
-      ) : null}
-      <ToastContainer />
-    </>
-  );
+    ) : null}
+    <ToastContainer />
+  </>
+);
 }
 
 export default App;
