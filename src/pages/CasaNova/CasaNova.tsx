@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './CasaNova.css';
 import { isMobile } from 'react-device-detect';
@@ -134,26 +134,30 @@ const NewHomeGiftPage: React.FC = () => {
     setPixCode(null);
   };
 
-  const handleSwipe = (direction: 'up' | 'down') => {
-    if (transitioning) return;
-  
-    const totalItemsFlat = Object.values(items).flat();
-    const totalItemsCount = totalItemsFlat.length;
-  
-    let newIndex = currentPage;
-  
-    if (direction === 'up') {
-      newIndex = Math.min(currentPage + 1, totalItemsCount - 1);
-    } else if (direction === 'down') {
-      newIndex = Math.max(currentPage - 1, 0);
-    }
-  
-    if (newIndex !== currentPage) {
-      setTransitioning(true); // Ativa transição
-      setTimeout(() => setTransitioning(false), 300); // Duração da animação (300ms)
-      setCurrentPage(newIndex); // Atualiza o índice atual
-    }
-  };
+  const handleSwipe = useCallback(
+    (direction: 'up' | 'down') => {
+      if (transitioning) return;
+
+      const totalItemsFlat = Object.values(items).flat();
+      const totalItemsCount = totalItemsFlat.length;
+
+      let newIndex = currentPage;
+
+      if (direction === 'up') {
+        newIndex = Math.min(currentPage + 1, totalItemsCount - 1);
+      } else if (direction === 'down') {
+        newIndex = Math.max(currentPage - 1, 0);
+      }
+
+      if (newIndex !== currentPage) {
+        setTransitioning(true); // Ativa transição
+        setTimeout(() => setTransitioning(false), 300); // Duração da animação (300ms)
+        setCurrentPage(newIndex); // Atualiza o índice atual
+      }
+    },
+    [currentPage, items, transitioning]
+  );
+
   
   const handleRedirectToCreditCard = async () => {
     if (!selectedItem) {

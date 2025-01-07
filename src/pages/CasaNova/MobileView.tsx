@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useMemo } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Item } from './types';
 import './LuxuryPage.css';
@@ -22,7 +22,7 @@ const MobileView: React.FC<MobileViewProps> = ({
 }) => {
   const [progress, setProgress] = useState<number>(0);
   const [isSwiping, setIsSwiping] = useState<boolean>(false);
-  const [showSortModal, setShowSortModal] = useState(false); // Estado do modal
+  const [showSortModal, setShowSortModal] = useState(false);
 
   const swipeHandlers = useSwipeable({
     onSwipedUp: () => {
@@ -42,42 +42,8 @@ const MobileView: React.FC<MobileViewProps> = ({
     trackMouse: true,
   });
 
-  return (
-    <div className="luxury-mobile-container">
-      {/* Botão de ordenar no topo */}
-      <div className="luxury-sort-top">
-        <button
-          className="luxury-sort-button"
-          onClick={() => setShowSortModal((prev) => !prev)} // Alterna a exibição do modal
-        >
-          Ordenar
-        </button>
-      </div>
-
-      {/* Modal de opções de ordenação */}
-      {showSortModal && (
-        <div className="luxury-sort-options">
-        <button
-          onClick={() => {
-            setShowSortModal(false); // Fecha o modal
-            sortItems('price'); // Notifica o componente pai sobre o critério 'price'
-          }}
-        >
-          Por Preço
-        </button>
-        <button
-          onClick={() => {
-            setShowSortModal(false); // Fecha o modal
-            sortItems('name'); // Notifica o componente pai sobre o critério 'name'
-          }}
-        >
-          Por Nome
-        </button>
-      </div>      
-      )}
-
-      <div {...swipeHandlers} className="luxury-swipe-container">
-      {items.map((item, index) => {
+  const renderedItems = useMemo(() => {
+    return items.map((item: Item, index: number) => {
   const offset = index - currentPage;
   const translateY = offset * 100 + (isSwiping ? progress * 100 : 0);
 
@@ -117,8 +83,46 @@ const MobileView: React.FC<MobileViewProps> = ({
       </div>
     </div>
   );
-})}
+});
 
+  }, [items, currentPage, isSwiping, progress, handleShowPayment]);
+
+  return (
+    <div className="luxury-mobile-container">
+      {/* Botão de ordenar no topo */}
+      <div className="luxury-sort-top">
+        <button
+          className="luxury-sort-button"
+          onClick={() => setShowSortModal((prev) => !prev)}
+        >
+          Ordenar
+        </button>
+      </div>
+
+      {/* Modal de opções de ordenação */}
+      {showSortModal && (
+        <div className="luxury-sort-options">
+          <button
+            onClick={() => {
+              setShowSortModal(false);
+              sortItems('price');
+            }}
+          >
+            Por Preço
+          </button>
+          <button
+            onClick={() => {
+              setShowSortModal(false);
+              sortItems('name');
+            }}
+          >
+            Por Nome
+          </button>
+        </div>
+      )}
+
+      <div {...swipeHandlers} className="luxury-swipe-container">
+        {renderedItems}
       </div>
 
       <div className="luxury-footer">
@@ -156,4 +160,4 @@ const MobileView: React.FC<MobileViewProps> = ({
   );
 };
 
-export default MobileView;
+export default memo(MobileView);
