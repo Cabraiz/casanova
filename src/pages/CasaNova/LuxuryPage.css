@@ -495,3 +495,95 @@ body.luxury-popup-active {
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2) !important; /* Sombra reduzida */
 }
 
+.loading-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #1a1a1d; /* Cor de fundo padrão */
+}
+
+.lazy-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* Coloca atrás do conteúdo principal */
+  filter: blur(8px); /* Adiciona um efeito de desfoque */
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(90deg, #2c3e50 25%, #34495e 50%, #2c3e50 75%); /* Azul semelhante à imagem */
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 10px;
+}
+
+.lazy-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.lazy-background.hidden {
+  opacity: 0;
+}
+
+.skeleton-single {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh; /* Garante que ocupa toda a tela */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.skeleton-img {
+  width: 60%; /* Ajusta a largura */
+  max-width: 300px; /* Largura máxima */
+  height: 200px; /* Altura fixa */
+  background: linear-gradient(90deg, #2c3e50 25%, #34495e 50%, #2c3e50 75%); /* Azul semelhante à imagem */
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.skeleton-text {
+  width: 40%; /* Ajusta a largura */
+  max-width: 200px; /* Largura máxima */
+  height: 20px;
+  background: linear-gradient(90deg, #2c3e50 25%, #34495e 50%, #2c3e50 75%); /* Azul semelhante à imagem */
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

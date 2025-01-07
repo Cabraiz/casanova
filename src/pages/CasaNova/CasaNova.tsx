@@ -23,6 +23,18 @@ const NewHomeGiftPage: React.FC = () => {
   const [pixCode, setPixCode] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState<boolean>(false);
   const [sortCriterion, setSortCriterion] = useState<'price' | 'name'>('price');
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+
+  useEffect(() => {
+    // Simula o carregamento do background (ou carregue diretamente com `onLoad`)
+    const backgroundImage = new Image();
+    backgroundImage.src =
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?fit=crop&w=1920&q=80'; // URL da imagem
+    backgroundImage.onload = () => setBackgroundLoaded(true);
+
+    // Simula o carregamento dos itens
+    setTimeout(() => setLoading(false), 2000); // Exemplo: simula 2 segundos de carregamento
+  }, []);
 
   // Controla o fundo e overflow do body
   useEffect(() => {
@@ -69,7 +81,6 @@ const NewHomeGiftPage: React.FC = () => {
   const handlePopupSubmit = (option: string) => {
     console.log(`Opção selecionada: ${option}`);
     setPopupVisible(false);
-    // Aqui você pode carregar itens ou outras ações após a seleção
   };
 
   const getMaxInstallments = (price: number): number => {
@@ -230,42 +241,64 @@ const NewHomeGiftPage: React.FC = () => {
 
 
   return (
-    <div className={`loading-container ${isMobile ? 'mobile-margins' : ''}`}>
-      {popupVisible ? (
-        <LuxuryPopup onSubmit={handlePopupSubmit} />
-      ) : error ? (
-        <div className="error-container">Erro: {error}</div>
-      ) : isMobile ? (
-        <MobileView
-          items={Object.values(items).flat()}
-          currentPage={currentPage}
-          transitioning={transitioning}
-          handleSwipe={handleSwipe}
-          handleShowPayment={handleShowPayment}
-          sortItems={sortItems}
-        />
-      ) : (
-        <DesktopView
-          items={items}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          totalPages={Math.ceil(totalItems / itemsPerPage)}
-          handlePageChange={handlePageChange}
-          handleShowPayment={handleShowPayment}
-          isLoading={loading}
-          sortItems={sortItems}
-        />
-      )}
-      {!popupVisible && (
-        <PaymentModal
-          show={showModal}
-          onClose={handleCloseModal}
-          pixCode={pixCode}
-          handleRedirectToCreditCard={handleRedirectToCreditCard}
-        />
-      )}
-    </div>
-  );
+  <div className={`loading-container ${isMobile ? 'mobile-margins' : ''}`}>
+    {/* Lazy Background */}
+    <div
+      className={`lazy-background ${backgroundLoaded ? '' : 'hidden'}`}
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?fit=crop&w=1920&q=80')", // Substitua pela URL desejada
+      }}
+    ></div>
+
+    {/* Conteúdo Principal */}
+    {popupVisible ? (
+      <LuxuryPopup onSubmit={handlePopupSubmit} />
+    ) : loading ? (
+      // Skeleton loader enquanto os dados carregam
+      <div className="skeleton-single">
+        <div className="skeleton-img"></div>
+        <div className="skeleton-text"></div>
+        <div className="skeleton-text"></div>
+      </div>
+    ) : error ? (
+      <div className="error-container">Erro: {error}</div>
+    ) : isMobile ? (
+      <MobileView
+        items={Object.values(items).flat()}
+        currentPage={currentPage}
+        transitioning={transitioning}
+        handleSwipe={handleSwipe}
+        handleShowPayment={handleShowPayment}
+        sortItems={sortItems}
+      />
+    ) : (
+      <DesktopView
+        items={items}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalPages={Math.ceil(totalItems / itemsPerPage)}
+        handlePageChange={handlePageChange}
+        handleShowPayment={handleShowPayment}
+        isLoading={loading}
+        sortItems={sortItems}
+      />
+    )}
+
+    {/* Modal de Pagamento */}
+    {!popupVisible && (
+      <PaymentModal
+        show={showModal}
+        onClose={handleCloseModal}
+        pixCode={pixCode}
+        handleRedirectToCreditCard={handleRedirectToCreditCard}
+      />
+    )}
+  </div>
+);
+
+
+
 };
 
 export default NewHomeGiftPage;
