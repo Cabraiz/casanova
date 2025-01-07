@@ -7,7 +7,6 @@ import { generatePixPayload } from './utils';
 import MobileView from './MobileView';
 import DesktopView from './DesktopView';
 import { Item } from './types';
-import { clearDB, saveToDB } from './dbHelpers';
 import PaymentModal from './PaymentModal';
 import LuxuryPopup from './LuxuryPopup';
 

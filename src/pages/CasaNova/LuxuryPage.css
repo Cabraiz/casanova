@@ -468,3 +468,30 @@ body.luxury-popup-active {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.custom-close-button {
+  background-color: #2b2b31 !important; /* Fundo escuro para combinar com o modal */
+  color: #d4d4d8 !important; /* Texto branco suave */
+  border: 2px solid #444 !important; /* Borda discreta */
+  padding: 10px 20px !important; /* Espaçamento confortável */
+  border-radius: 8px !important; /* Cantos arredondados */
+  font-size: 1rem !important; /* Tamanho do texto */
+  font-family: 'Inter', sans-serif !important; /* Fonte moderna */
+  font-weight: 500 !important; /* Peso médio */
+  cursor: pointer !important; /* Cursor em forma de mão */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease !important; /* Transições suaves */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* Sombra para profundidade */
+}
+
+.custom-close-button:hover {
+  background-color: #37373d !important; /* Fundo levemente mais claro no hover */
+  color: #ffffff !important; /* Texto totalmente branco */
+  transform: translateY(-2px) !important; /* Leve elevação */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3) !important; /* Sombra mais intensa */
+}
+
+.custom-close-button:active {
+  background-color: #242428 !important; /* Fundo mais escuro no estado ativo */
+  transform: translateY(1px) !important; /* Leve pressão ao clicar */
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2) !important; /* Sombra reduzida */
+}
+

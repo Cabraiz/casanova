@@ -328,41 +328,59 @@ body.casanova-page {
 }
 
 .modal-content {
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #ffd1dc, #fda085);
-  color: #333;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #2a2a2e, #1f1f23); /* Fundo escuro com gradiente suave */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 -10px 30px rgba(255, 255, 255, 0.05); /* Sombra refinada */
+  overflow: hidden;
+  animation: modal-appear 0.5s ease-out;
 }
 
 .modal-header, .modal-footer {
-  background: #ffe4b3;
+  background: linear-gradient(135deg, #454545, #333333); /* Fundo gradiente para cabeçalho e rodapé */
+  color: #ffffff; /* Texto branco suave */
   border-radius: 15px 15px 0 0;
   text-align: center;
+  padding: 15px;
+  box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.3); /* Sombra interna */
 }
 
 .modal-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #333;
+  color: #eaeaea; /* Texto harmonizado */
 }
 
 .modal-body {
+  padding: 30px;
   text-align: center;
+  color: #d4d4d4; /* Texto mais claro para contraste */
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  position: relative;
+  background: linear-gradient(145deg, #232329, #1c1c22); /* Fundo refinado */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  animation: body-fade-in 0.6s ease-in;
 }
 
 .modal-body svg {
   margin: 20px auto;
   padding: 10px;
-  border: 5px solid #fda085;
+  border: 5px solid transparent;
+  border-image: linear-gradient(135deg, #6a11cb, #2575fc) 1;
   border-radius: 15px;
   background: white;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .modal-body svg:hover {
   transform: scale(1.05);
+  border-image: linear-gradient(135deg, #7a31db, #3587fc) 1;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 10px rgba(120, 120, 255, 0.4);
 }
 
 .copy-feedback {
@@ -377,43 +395,50 @@ body.casanova-page {
 }
 
 .copy-button {
-  background-color: #fda085;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
+  background-color: #2c2c2f;
+  color: #eaeaea;
+  border: 2px solid #444;
+  padding: 12px 24px;
+  border-radius: 8px;
   font-size: 1rem;
-  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.4s ease, color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .copy-button:hover {
-  background-color: #f6d365;
+  background-color: #3b3b3f;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .payment-button {
-  background-color: #ffd700;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
   border: none;
   color: white;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 12px 20px;
-  border-radius: 10px;
+  letter-spacing: 1.2px;
+  padding: 14px 28px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .payment-button:hover {
-  background-color: #f6c700;
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #7a31db, #3587fc);
+  transform: translateY(-4px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.35);
 }
 
 .payment-button i {
@@ -422,10 +447,34 @@ body.casanova-page {
 }
 
 .payment-button.credit-card {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
 }
 
 .payment-button.credit-card:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #ff6347, #dd3386);
+  transform: translateY(-4px);
+  box-shadow: 0px 10px 20px rgba(255, 82, 82, 0.35);
 }
 
+/* Animações */
+@keyframes modal-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes body-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

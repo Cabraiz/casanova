@@ -60,7 +60,7 @@ const PaymentModal: React.FC<{
 </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={onClose} className="custom-close-button">
           Fechar
         </Button>
       </Modal.Footer>
