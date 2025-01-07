@@ -354,3 +354,117 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
+/* Fundo forçado no body */
+body.luxury-popup-active {
+  background: linear-gradient(135deg, #1a1a1d, #2c2c34); /* Tons escuros */
+  margin: 0;
+  overflow: hidden; /* Evita scroll */
+  height: 100vh; /* Força o body ocupar a tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fundo do popup */
+.luxury-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85); /* Fundo escuro translúcido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Container do popup */
+.luxury-popup-container {
+  background: #202024; /* Cinza escuro neutro */
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra futurista */
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Título */
+.luxury-popup-title {
+  font-family: 'Roboto', sans-serif; /* Fonte profissional */
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #e0e0e0; /* Cinza claro */
+  margin-bottom: 20px;
+}
+
+/* Opções de escolha */
+.luxury-popup-options {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+/* Botões de opção */
+.luxury-popup-option {
+  background: transparent;
+  color: #5dade2; /* Azul claro futurista */
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 2px solid #5dade2; /* Borda azul clara */
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.luxury-popup-option:hover {
+  background: #5dade2; /* Azul claro preenchido no hover */
+  color: #fff;
+  transform: scale(1.05); /* Leve aumento no hover */
+}
+
+.luxury-popup-option.selected {
+  background: #27ae60; /* Verde futurista */
+  border-color: #27ae60;
+  color: #fff;
+}
+
+/* Botão Prosseguir */
+.luxury-popup-proceed-button {
+  background: #5dade2; /* Azul claro */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(93, 173, 226, 0.4); /* Glow sutil */
+}
+
+.luxury-popup-proceed-button:hover {
+  background: #27ae60; /* Verde futurista no hover */
+  box-shadow: 0 8px 20px rgba(39, 174, 96, 0.6); /* Glow mais forte */
+}
+
+.luxury-popup-proceed-button:active {
+  transform: scale(0.95);
+  background: #145a32; /* Verde escuro no clique */
+}
+
+/* Mensagem de erro */
+.luxury-popup-error {
+  color: #ff6b6b; /* Vermelho suave */
+  font-size: 1rem;
+  margin-top: 15px;
+  background: rgba(255, 107, 107, 0.2); /* Fundo leve para destaque */
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+

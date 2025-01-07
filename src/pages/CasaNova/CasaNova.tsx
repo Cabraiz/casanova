@@ -9,8 +9,10 @@ import DesktopView from './DesktopView';
 import { Item } from './types';
 import { clearDB, saveToDB } from './dbHelpers';
 import PaymentModal from './PaymentModal';
+import LuxuryPopup from './LuxuryPopup';
 
 const NewHomeGiftPage: React.FC = () => {
+  const [popupVisible, setPopupVisible] = useState(true);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [items, setItems] = useState<{ [page: number]: Item[] }>({});
   const [loading, setLoading] = useState<boolean>(true);
@@ -22,6 +24,23 @@ const NewHomeGiftPage: React.FC = () => {
   const [pixCode, setPixCode] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState<boolean>(false);
   const [sortCriterion, setSortCriterion] = useState<'price' | 'name'>('price');
+
+  // Controla o fundo e overflow do body
+  useEffect(() => {
+    if (popupVisible) {
+      document.body.style.overflow = 'hidden'; // Evita scroll
+      document.body.style.background = '#1a1a1d'; // Fundo uniforme escuro
+    } else {
+      document.body.style.overflow = 'auto';
+      document.body.style.background = ''; // Reseta para o padrão
+    }
+
+    // Cleanup ao desmontar ou mudar o estado
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.background = '';
+    };
+  }, [popupVisible]);
 
   const loadItems = async (pagesToLoad: number[]) => {
     try {
@@ -48,7 +67,11 @@ const NewHomeGiftPage: React.FC = () => {
     }
   };
   
-  
+  const handlePopupSubmit = (option: string) => {
+    console.log(`Opção selecionada: ${option}`);
+    setPopupVisible(false);
+    // Aqui você pode carregar itens ou outras ações após a seleção
+  };
 
   const getMaxInstallments = (price: number): number => {
     if (price > 200) {
@@ -87,13 +110,13 @@ const NewHomeGiftPage: React.FC = () => {
       }
     };
   
-    loadPages(); // Carrega os itens
-  }, [currentPage, sortCriterion]); // Dispara sempre que o critério muda
+    loadPages(); 
+  }, [currentPage, sortCriterion]);
   
   
 
   const handleShowPayment = (item: Item) => {
-    console.log("Abrindo modal para o item:", item); // Log para verificar
+    console.log("Abrindo modal para o item:", item);
     const payload = generatePixPayload(
       item.price,
       '61070800317',
@@ -114,15 +137,15 @@ const NewHomeGiftPage: React.FC = () => {
   const handleSwipe = (direction: 'up' | 'down') => {
     if (transitioning) return;
   
-    const totalItemsFlat = Object.values(items).flat(); // Unifica todos os itens em um único array
+    const totalItemsFlat = Object.values(items).flat();
     const totalItemsCount = totalItemsFlat.length;
   
     let newIndex = currentPage;
   
     if (direction === 'up') {
-      newIndex = Math.min(currentPage + 1, totalItemsCount - 1); // Vai para o próximo item
+      newIndex = Math.min(currentPage + 1, totalItemsCount - 1);
     } else if (direction === 'down') {
-      newIndex = Math.max(currentPage - 1, 0); // Volta para o item anterior
+      newIndex = Math.max(currentPage - 1, 0);
     }
   
     if (newIndex !== currentPage) {
@@ -205,7 +228,9 @@ const NewHomeGiftPage: React.FC = () => {
 
   return (
     <div className={`loading-container ${isMobile ? 'mobile-margins' : ''}`}>
-      {error ? (
+      {popupVisible ? (
+        <LuxuryPopup onSubmit={handlePopupSubmit} />
+      ) : error ? (
         <div className="error-container">Erro: {error}</div>
       ) : isMobile ? (
         <MobileView
@@ -228,14 +253,16 @@ const NewHomeGiftPage: React.FC = () => {
           sortItems={sortItems}
         />
       )}
-      <PaymentModal
-        show={showModal}
-        onClose={handleCloseModal}
-        pixCode={pixCode}
-        handleRedirectToCreditCard={handleRedirectToCreditCard}
-      />
+      {!popupVisible && (
+        <PaymentModal
+          show={showModal}
+          onClose={handleCloseModal}
+          pixCode={pixCode}
+          handleRedirectToCreditCard={handleRedirectToCreditCard}
+        />
+      )}
     </div>
-  );  
+  );
 };
 
 export default NewHomeGiftPage;
